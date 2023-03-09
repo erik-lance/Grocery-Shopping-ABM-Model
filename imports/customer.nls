@@ -1,0 +1,27 @@
+; NetLogo Customer NLS file
+; Customer is a turtle
+breed [customers customer]
+turtles-own [
+  basket
+]
+
+; Spawns customer
+to spawn-customer [num_customers]
+  create-customers num_customers [
+    set basket []
+    move-to one-of patches with [pcolor = white ]
+  ]
+  
+end
+
+; Move customer
+to move-customer
+    ; Placeholder movement
+    right random 5
+    left random 5
+    forward random 5
+end
+
+to add-basket [grocery_item]
+  
+end
