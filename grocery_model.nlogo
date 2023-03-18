@@ -4,8 +4,7 @@ __includes [
 
 to setup
   clear-all
-  ; sets background to white
-  ask patches [set pcolor white]
+  create-map
 
   ; create the customer
   spawn-customer 3
@@ -17,6 +16,25 @@ to go
   ask customers [ move-customer ]
 end
 
+to create-map
+  ask patches [set pcolor white];
+  ;exit
+  ask patches with [pxcor >= 11 and pxcor < 15 and pycor <= -15] [set pcolor red];
+  ;entrance
+  ask patches with [pxcor <= -11 and pxcor > -15 and pycor <= -15] [set pcolor green];
+  ;shelf border
+  ask patches with [((pxcor >= 15 or pxcor <= -15) and pycor > 0) or pycor >= 15] [set pcolor brown];
+  ;shelves
+  ask patches with [pxcor < 15 and pxcor > -15 and pycor > 0 and pycor < 12] [
+    if (pxcor >= -2 and pxcor <= 2) [set pcolor brown]
+    if (pxcor >= 7 and pxcor <= 10) [set pcolor brown]
+    if (pxcor >= -10 and pxcor <= -7) [set pcolor brown]
+  ]
+  ;cashiers
+  ask patches with [pxcor <= 10 and pxcor >= -9 and pycor <= -6 and pycor >= -12] [
+    if ((pxcor mod 4) = 1 or (pxcor mod 4) = 2) [set pcolor gray]
+  ]
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
@@ -32,8 +50,8 @@ GRAPHICS-WINDOW
 1
 1
 0
-1
-1
+0
+0
 1
 -16
 16
@@ -46,10 +64,10 @@ ticks
 30.0
 
 BUTTON
-52
-143
-115
-176
+72
+152
+135
+185
 NIL
 setup
 NIL
@@ -70,6 +88,23 @@ BUTTON
 NIL
 go
 NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+71
+191
+134
+224
+NIL
+go
+T
 1
 T
 OBSERVER

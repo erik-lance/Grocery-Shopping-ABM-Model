@@ -9,17 +9,20 @@ turtles-own [
 to spawn-customer [num_customers]
   create-customers num_customers [
     set basket []
-    move-to one-of patches with [pcolor = white ]
+    move-to one-of patches with [pcolor = green ]
+    set color grey
+    set shape "person"
+    set size 2
   ]
   
 end
 
 ; Move customer
 to move-customer
-    ; Placeholder movement
-    right random 5
-    left random 5
-    forward random 5
+    ; Placeholder movement, just goes to the exit for now
+    let exit-patch one-of patches with [pcolor = red]
+    face exit-patch
+    fd 1
 end
 
 to add-basket [grocery_item]
