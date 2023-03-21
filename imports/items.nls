@@ -1,0 +1,7 @@
+; Shelf patches
+; if id = -1, then it is not a shelf
+patches-own [
+  product_id      ;  (PK) Unique Product ID
+  product_price   ; (int) Price of product
+]
+
