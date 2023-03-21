@@ -1,4 +1,4 @@
-extensions [table]
+extensions [csv]
 ; Shelf patches
 ; if id = -1, then it is not a shelf
 patches-own [
@@ -10,15 +10,3 @@ to fill-shelf [shelf_no product_id]
   
 
 end
-
-; ----------------------------------- ;
-; ------------ ITEM LIST ------------ ;
-; ----------------------------------- ;
-
-; ----------------------------------- ;
-; | ID | Name            | Price    | ;
-; | -- | --------------- | -------- | ;
-; | 00 | Apple           |       10 | ;
-; | 01 | Banana          |       10 | ;
-;
-

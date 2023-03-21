@@ -2,7 +2,8 @@ __includes [
   "imports/customer.nls"
 ]
 
-extensions [table]
+extensions [csv]
+globals [data]
 
 to setup
   clear-all
@@ -11,10 +12,8 @@ to setup
   ; create the customer
   spawn-customer 3
 
-  let dict table:from-json-file "imports/list.json"
-  print table:keys dict
-  print table:values dict
-  ;print table:get dict "1"
+  set data csv:from-file "imports/list.csv"
+  print data
   reset-ticks
 end
 
