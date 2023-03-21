@@ -2,6 +2,8 @@ __includes [
   "imports/customer.nls"
 ]
 
+extensions [table]
+
 to setup
   clear-all
   create-map
@@ -9,6 +11,10 @@ to setup
   ; create the customer
   spawn-customer 3
 
+  let dict table:from-json-file "imports/list.json"
+  print table:keys dict
+  print table:values dict
+  ;print table:get dict "1"
   reset-ticks
 end
 
