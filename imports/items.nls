@@ -4,9 +4,11 @@ extensions [csv]
 patches-own [
   product_id      ;  (PK) Unique Product ID
   product_price   ; (int) Price of product
+  product_quantity        ; (int) Quantity of product
 ]
 
-to fill-shelf [shelf_no product_id]
-  
-
+to fill-shelf [id price quantity]
+  set product_id id
+  set product_price price
+  set product_quantity quantity
 end

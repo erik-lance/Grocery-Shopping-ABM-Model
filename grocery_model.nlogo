@@ -1,5 +1,6 @@
 __includes [
   "imports/customer.nls"
+  "imports/items.nls"
 ]
 
 extensions [csv]
@@ -13,7 +14,44 @@ to setup
   spawn-customer 3
 
   set data csv:from-file "imports/list.csv"
-  print data
+  ;print data
+
+  ;skip 0 since its a header line
+  let indexer 1
+  while [indexer < length data] [
+      let datalist item indexer data
+      let id item 0 datalist
+      let name item 1 datalist
+      let price item 2 datalist
+      print(word "At index " indexer " id = " id " name= " name " price = " price )
+      set indexer indexer + 1
+  ]
+  print "________import done_________"
+
+  ;temporary assignment of items per shelf
+  ask patches [
+    ifelse pcolor = brown ;if shelf, get item
+    [
+      let index one-of [1 2]
+      if index != 0[
+        let datalist item index data
+        let id item 0 datalist
+
+        let price item 2 datalist
+
+        fill-shelf id price 50
+      ]
+    ]
+    ;else product id is -1
+    [ set product_id -1 ]
+  ]
+
+  ;for debugging
+  ;ask patches[
+  ;  if product_id = 0 [set pcolor red]
+  ;  if product_id = 1 [set pcolor yellow]
+  ;]
+
   reset-ticks
 end
 
