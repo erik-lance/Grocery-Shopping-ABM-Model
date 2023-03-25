@@ -1,6 +1,10 @@
 __includes [
   "imports/customer.nls"
+  "imports/items.nls"
 ]
+
+extensions [csv]
+globals [data]
 
 to setup
   clear-all

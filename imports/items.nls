@@ -1,0 +1,21 @@
+extensions [csv]
+; Shelf patches
+; if id = -1, then it is not a shelf
+patches-own [
+  product_id      ;  (PK) Unique Product ID
+  product_price   ; (int) Price of product
+]
+
+to load_list
+  set data csv:from-file "imports/list.csv"
+  print data
+end
+
+to-report grab_item_data [id]
+  report item id data
+end
+
+to fill-shelf [shelf_no id amt]
+  let item_data grab_item_data id  ; Grab item data and store to item_data
+  
+end
