@@ -19,7 +19,7 @@ end
 to fill-shelf [shelf_no id amt]
   let item_data grab_item_data id  ; Grab item data and store to item_data
   
-  set product_id item_data 0      ; Set product_id to item_data[0]
-  set product_price item_data 1   ; Set product_price to item_data[1]
-  set product_quantity quantity   ; Set product_quantity to quantity
+  set product_id item 0 item_data      ; Set product_id to item_data[0]
+  set product_price item 1 item_data   ; Set product_price to item_data[1]
+  set product_quantity amt             ; Set product_quantity to quantity
 end
