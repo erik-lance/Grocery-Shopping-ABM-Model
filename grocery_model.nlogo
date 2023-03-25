@@ -20,11 +20,8 @@ to setup
   ask patches [
     ifelse pcolor = brown ;if shelf, get item
     [
-      let index one-of [1 2]
-      if index != 0[
         let id (random 2) + 1
         fill-shelf id 50
-      ]
     ]
     ;else product id is -1
     [ set product_id -1 ]
