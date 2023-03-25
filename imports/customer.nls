@@ -28,3 +28,93 @@ end
 to add-basket [grocery_item]
   
 end
+
+to-report generate-bucket-list
+  let num-items random 10
+  let cur-items 0
+  let bucket []
+  
+  loop [
+    let item-id (random (length data - 1)) + 1  ; Subtracts the header from length and adds one to skip header.
+    let bucket-item-data grab-item-data item-id
+    
+    ; Format of list is [itemid, amount]
+    let bucket-item []
+    set bucket-item lput (item 0 bucket-item-data) bucket-item  ; Puts ID to bucket-item
+    set bucket-item lput 1 bucket-item  ; Quantity becomes 1 by default since new item.
+    
+    set bucket lput bucket-item bucket  ; Adds to bucket
+    set bucket (cluster-duplicates bucket)
+    
+    set cur-items (cur-items + 1)  ; Increment number of items
+    if cur-items >= num-items [ report bucket ]  ; Report bucket if reached max items
+  ]
+
+end
+
+to-report find-duplicate [ z ]
+  ; Recursion to find duplicate item
+  if ((length z) <= 1) [ report false ]  ; No duplicates founds
+  
+  let x first z      ; first item
+  let y butfirst z   ; all but first item
+  
+  foreach y [
+    dupe -> (
+      if (item 0 x = item 0 dupe) [ report x ]  ; Found duplicate
+    )
+  ]
+  
+  ; Recurse over all item in y
+  report find-duplicate y
+end
+
+to-report cluster-duplicates [ c ]
+  let dupe find-duplicate c
+  
+  ifelse (dupe = false) [ report c ]  ; Return original list
+  [ 
+    let list-dupes []
+    let new-list []
+    
+    ; Grabs all instances of dupe item based on ID
+    foreach c [
+      list-item -> (
+        ; If same ID as dupe item, list it down
+        if (item 0 dupe = item 0 list-item) 
+        [
+          set list-dupes lput list-item list-dupes
+        ]
+      )
+    ]
+    
+    ; Removes all instance of dupe item including original
+    foreach c 
+    [
+      list-item -> (
+        if (item 0 dupe != item 0 list-item)
+        [
+          set new-list lput list-item new-list  ; Adds non-dupe item to new list
+        ]
+      )
+    ]
+
+    ; Adds quantity
+    let new-item []
+    let new-quantity 0
+    
+    foreach list-dupes
+    [
+      dupe-item -> (set new-quantity (new-quantity + (item 1 dupe-item) ) )
+    ]
+    
+    set new-item lput (item 0 dupe) new-item  ; Adds item ID as first item in list
+    set new-item lput new-quantity new-item   ; Adds quantity as second item in list
+    
+    ; Adds new-item to main list
+    set new-list lput new-item new-list
+    
+    report new-list
+    
+  ]
+end
