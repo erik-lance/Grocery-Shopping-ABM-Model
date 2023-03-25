@@ -13,7 +13,7 @@ to setup
   ; create the customer
   spawn-customer 3
 
-  load_list
+  load-list
   print "________import done_________"
 
   ;temporary assignment of items per shelf
