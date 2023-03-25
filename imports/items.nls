@@ -6,7 +6,7 @@ patches-own [
   product_price   ; (int) Price of product
 ]
 
-to fill-shelf [shelf_no product_id]
-  
-
+to load_list
+  set data csv:from-file "imports/list.csv"
+  print data
 end
