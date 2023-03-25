@@ -43,47 +43,41 @@ to-report generate-bucket-list
     set bucket-item lput (item 0 bucket-item-data) bucket-item  ; Puts ID to bucket-item
     set bucket-item lput 1 bucket-item  ; Quantity becomes 1 by default since new item.
     
-    print "Current bucket: "
-    print bucket
-    print "Item: "
-    print bucket-item
-    
     let found false  ; For skipping last few lines in case dupe is found
     
     if ((length bucket) >= 1)
     [
       let fcounter 0  ; For indexing
       
+      ; While haven't reached end of bucket list:
       while [fcounter < length bucket]
       [
-        let dupe (item fcounter bucket)
-        if (item 0 bucket-item = item 0 dupe) 
-          [
+        let dupe (item fcounter bucket)        ; Grab item (like for each)
+        if (item 0 bucket-item = item 0 dupe)  ; Check if same item id
+        [
             let quantity (item 1 dupe) + 1
-            let new-item []
+            let new-item []                           ; Creates a new item
             set new-item lput (item 0 dupe) new-item  ; id
             set new-item lput quantity new-item       ; quantity
             
+            ; Replaces existing item with new-item (in order to update quantity)
             set bucket (replace-item fcounter bucket new-item)
             
             set fcounter (length bucket)  ; Force stop
-
-            set cur-items (cur-items + 1)  ; Increment number of items
-            if cur-items >= num-items [ report bucket ]  ; Report bucket if reached max items
-            
-            set found true
+            set found true  ; To skip add bucket repeating lines
     
-          ]  ; Found duplicate
+        ]  ; Found duplicate
         set fcounter (fcounter + 1)  ; Increment index
       ]
     ]
     
     if (found = false) 
     [
-      set bucket lput bucket-item bucket  ; Adds to bucket
-      set cur-items (cur-items + 1)  ; Increment number of items
-      if cur-items >= num-items [ report bucket ]  ; Report bucket if reached max items
+      set bucket lput bucket-item bucket  ; Adds to bucket 
     ]
+    
+    set cur-items (cur-items + 1)  ; Increment number of items
+    if cur-items >= num-items [ report bucket ]  ; Report bucket if reached max items
     
   ]
 
