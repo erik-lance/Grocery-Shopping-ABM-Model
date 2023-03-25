@@ -43,78 +43,48 @@ to-report generate-bucket-list
     set bucket-item lput (item 0 bucket-item-data) bucket-item  ; Puts ID to bucket-item
     set bucket-item lput 1 bucket-item  ; Quantity becomes 1 by default since new item.
     
-    set bucket lput bucket-item bucket  ; Adds to bucket
-    set bucket (cluster-duplicates bucket)
+    print "Current bucket: "
+    print bucket
+    print "Item: "
+    print bucket-item
     
-    set cur-items (cur-items + 1)  ; Increment number of items
-    if cur-items >= num-items [ report bucket ]  ; Report bucket if reached max items
-  ]
-
-end
-
-to-report find-duplicate [ z ]
-  ; Recursion to find duplicate item
-  if ((length z) <= 1) [ report false ]  ; No duplicates founds
-  
-  let x first z      ; first item
-  let y butfirst z   ; all but first item
-  
-  foreach y [
-    dupe -> (
-      if (item 0 x = item 0 dupe) [ report x ]  ; Found duplicate
-    )
-  ]
-  
-  ; Recurse over all item in y
-  report find-duplicate y
-end
-
-to-report cluster-duplicates [ c ]
-  let dupe find-duplicate c
-  
-  ifelse (dupe = false) [ report c ]  ; Return original list
-  [ 
-    let list-dupes []
-    let new-list []
+    let found false  ; For skipping last few lines in case dupe is found
     
-    ; Grabs all instances of dupe item based on ID
-    foreach c [
-      list-item -> (
-        ; If same ID as dupe item, list it down
-        if (item 0 dupe = item 0 list-item) 
-        [
-          set list-dupes lput list-item list-dupes
-        ]
-      )
-    ]
-    
-    ; Removes all instance of dupe item including original
-    foreach c 
+    if ((length bucket) >= 1)
     [
-      list-item -> (
-        if (item 0 dupe != item 0 list-item)
-        [
-          set new-list lput list-item new-list  ; Adds non-dupe item to new list
-        ]
-      )
-    ]
+      let fcounter 0  ; For indexing
+      
+      while [fcounter < length bucket]
+      [
+        let dupe (item fcounter bucket)
+        if (item 0 bucket-item = item 0 dupe) 
+          [
+            let quantity (item 1 dupe) + 1
+            let new-item []
+            set new-item lput (item 0 dupe) new-item  ; id
+            set new-item lput quantity new-item       ; quantity
+            
+            set bucket (replace-item fcounter bucket new-item)
+            
+            set fcounter (length bucket)  ; Force stop
 
-    ; Adds quantity
-    let new-item []
-    let new-quantity 0
+            set cur-items (cur-items + 1)  ; Increment number of items
+            if cur-items >= num-items [ report bucket ]  ; Report bucket if reached max items
+            
+            set found true
     
-    foreach list-dupes
-    [
-      dupe-item -> (set new-quantity (new-quantity + (item 1 dupe-item) ) )
+          ]  ; Found duplicate
+        set fcounter (fcounter + 1)  ; Increment index
+      ]
     ]
     
-    set new-item lput (item 0 dupe) new-item  ; Adds item ID as first item in list
-    set new-item lput new-quantity new-item   ; Adds quantity as second item in list
-    
-    ; Adds new-item to main list
-    set new-list lput new-item new-list
-    
-    report new-list
+    if (found = false) 
+    [
+      set bucket lput bucket-item bucket  ; Adds to bucket
+      set cur-items (cur-items + 1)  ; Increment number of items
+      if cur-items >= num-items [ report bucket ]  ; Report bucket if reached max items
+    ]
     
   ]
+
 end
