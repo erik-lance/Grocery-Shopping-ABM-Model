@@ -1,5 +1,6 @@
 __includes [
   "imports/customer.nls"
+  "imports/items.nls"
 ]
 
 extensions [csv]
@@ -12,8 +13,6 @@ to setup
   ; create the customer
   spawn-customer 3
 
-  set data csv:from-file "imports/list.csv"
-  print data
   reset-ticks
 end
 
