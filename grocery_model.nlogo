@@ -29,16 +29,21 @@ to setup
   ]
 
   ;for debugging
-  ;ask patches[
-  ;  if product_id = 0 [set pcolor red]
-  ;  if product_id = 1 [set pcolor yellow]
-  ;]
+  ;debug-shelves
 
   reset-ticks
 end
 
 to go
   ask customers [ move-customer ]
+end
+
+
+to debug-shelves
+  ask patches[
+    if product_id = 0 [set pcolor red]
+    if product_id = 1 [set pcolor yellow]
+  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
