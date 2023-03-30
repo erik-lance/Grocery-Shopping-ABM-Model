@@ -1,6 +1,7 @@
 __includes [
   "imports/customer.nls"
   "imports/items.nls"
+  "imports/environment.nls"
 ]
 
 extensions [csv]
@@ -38,26 +39,6 @@ end
 
 to go
   ask customers [ move-customer ]
-end
-
-to create-map
-  ask patches [set pcolor white];
-  ;exit
-  ask patches with [pxcor >= 11 and pxcor < 15 and pycor <= -15] [set pcolor red];
-  ;entrance
-  ask patches with [pxcor <= -11 and pxcor > -15 and pycor <= -15] [set pcolor green];
-  ;shelf border
-  ask patches with [((pxcor >= 15 or pxcor <= -15) and pycor > 0) or pycor >= 15] [set pcolor brown];
-  ;shelves
-  ask patches with [pxcor < 15 and pxcor > -15 and pycor > 0 and pycor < 12] [
-    if (pxcor >= -2 and pxcor <= 2) [set pcolor brown]
-    if (pxcor >= 7 and pxcor <= 10) [set pcolor brown]
-    if (pxcor >= -10 and pxcor <= -7) [set pcolor brown]
-  ]
-  ;cashiers
-  ask patches with [pxcor <= 10 and pxcor >= -9 and pycor <= -6 and pycor >= -12] [
-    if ((pxcor mod 4) = 1 or (pxcor mod 4) = 2) [set pcolor gray]
-  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
