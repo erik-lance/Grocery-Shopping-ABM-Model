@@ -1,0 +1,40 @@
+
+to create-map
+  ask patches [set pcolor white];
+  
+  draw-entrance-exit
+  draw-shelves
+  draw-checkout
+  draw-backroom
+end
+
+to draw-entrance-exit
+  ;exit
+  ask patches with [pxcor >= 11 and pxcor < 15 and pycor <= -15] [set pcolor red];
+  ;entrance
+  ask patches with [pxcor <= -11 and pxcor > -15 and pycor <= -15] [set pcolor green];
+end
+
+to draw-shelves
+  ;shelf border
+  ask patches with [((pxcor >= 15 or pxcor <= -15) and pycor > 0) or pycor >= 15] [set pcolor brown];
+  ;shelves
+  ask patches with [pxcor < 15 and pxcor > -15 and pycor > 0 and pycor < 12] [
+    if (pxcor >= -2 and pxcor <= 2) [set pcolor brown]
+    if (pxcor >= 7 and pxcor <= 10) [set pcolor brown]
+    if (pxcor >= -10 and pxcor <= -7) [set pcolor brown]
+  ]
+end
+
+to draw-checkout
+  ;cashiers
+  ask patches with [pxcor <= 10 and pxcor >= -9 and pycor <= -6 and pycor >= -12] [
+    if ((pxcor mod 4) = 1 or (pxcor mod 4) = 2) [set pcolor gray]
+  ]
+end
+
+to draw-backroom
+  ;backroom
+  ask patches with [pxcor >= 11 and pxcor < 15 and pycor >= 15] [set pcolor 12];
+
+end
