@@ -2,6 +2,7 @@ __includes [
   "imports/customer.nls"
   "imports/items.nls"
   "imports/environment.nls"
+  "imports/debug.nls"
 ]
 
 extensions [csv]
@@ -37,19 +38,6 @@ end
 
 to go
   ask customers [ move-customer ]
-end
-
-to debug-bucket
-  print "___ DEBUG: Customer Bucket List ___"
-  print generate-bucket-list
-end
-
-to debug-shelves
-  print "___ DEBUG: Shelves were colored after product_id ___"
-  ask patches[
-    if product_id = 0 [set pcolor red]
-    if product_id = 1 [set pcolor yellow]
-  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
