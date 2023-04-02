@@ -34,7 +34,7 @@ to move-customer
     let exit-patch one-of patches with [pcolor = red]
     face exit-patch
     fd 1
-    print dist-cust-to-item 1
+    print get-closest-shelf 1
 end
 
 to add-basket [grocery_item]
@@ -96,7 +96,7 @@ to-report generate-bucket-list
 end
 
 
-to-report dist-cust-to-item [id]
+to-report get-closest-shelf [id]
   let closest-shelf nobody
   let min-distance 99999
   
