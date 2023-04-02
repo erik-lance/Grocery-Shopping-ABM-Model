@@ -1,6 +1,12 @@
 to go-to-floor [id]
+  let floor-patch one-of patches with [shelf_id = id]
+  let floor-x [pxcor] of floor-patch
+  let floor-y [pycor] of floor-patch
   
-
+  if is-in-row 
+  [
+    set heading 90
+  ]
 
 end
 
@@ -26,6 +32,11 @@ to-report is-in-row
   report back-row or front-row
 end
 
+to-report is-in-same-aisle [self_id floor_id]
+  
+
+end
+
 to-report in-aisle-1 [x] report (x >= -14 and x <= -11) end
 to-report in-aisle-2 [x] report (x >= -6  and x <= -3 ) end
 to-report in-aisle-3 [x] report (x >= -3  and x <= -6 ) end
@@ -33,6 +44,31 @@ to-report in-aisle-4 [x] report (x >= 11  and x <= 14 ) end
 to-report in-back-row  [y] report (y >= -14 and y <= -12) end
 to-report in-front-row [y] report (y >= -5  and y <= 0  ) end
 
+to-report get-aisle [id]
+  let this-patch one-of patches with [shelf_id = id]
+  let x-coord [pxcor] of this-patch
+  
+  if (in-aisle-1 x-coord) [report 1]
+  if (in-aisle-2 x-coord) [report 2]
+  if (in-aisle-3 x-coord) [report 3]
+  if (in-aisle-4 x-coord) [report 4]
+  
+  report -1
+end
+
+to-report get-row [id]
+  let this-patch one-of patches with [shelf_id = id]
+  let y-coord [pycor] of this-patch
+  
+  if (in-front-row y-coord) [report 1]
+  if (in-back-row y-coord)  [report 2]
+  
+  report -1
+end
+
+to-report get-closest-aisle-exit 
+
+end
 
 to-report get-closest-floor-to-shelf [id]
   let shelf-patch one-of patches with [shelf_id = id]
