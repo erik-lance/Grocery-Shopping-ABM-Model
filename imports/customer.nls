@@ -12,7 +12,7 @@ customers-own [
 to spawn-customer [num_customers]
   create-customers num_customers [
     set basket []
-    ;set shopping-list generate-bucket-list
+    set shopping-list generate-bucket-list
     ;set selected-product 
     move-to one-of patches with [pcolor = green ]
     set color grey

@@ -12,10 +12,12 @@ to setup
   clear-all
   create-map
 
+  load-list
+
   ; create the customer
   spawn-customer 3
 
-  load-list
+
   print "________import done_________"
 
   ;temporary assignment of items per shelf
