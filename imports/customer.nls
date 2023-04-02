@@ -24,7 +24,9 @@ end
 
 to choose-product
   if not empty? shopping-list [
-    
+    let product first shopping-list
+    set selected-product item 0 product
+    set selected-shelf -1 ; reset selected-shelf
   ]
 end
 
