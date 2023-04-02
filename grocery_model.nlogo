@@ -3,6 +3,7 @@ __includes [
   "imports/items.nls"
   "imports/environment.nls"
   "imports/debug.nls"
+  "imports/move_algo.nls"
 ]
 
 extensions [csv]
@@ -12,10 +13,12 @@ to setup
   clear-all
   create-map
 
+  load-list
+
   ; create the customer
   spawn-customer 3
 
-  load-list
+
   print "________import done_________"
 
   ;temporary assignment of items per shelf
@@ -32,7 +35,6 @@ to setup
   ;for debugging
   ;debug-shelves
   ;debug-bucket
-
   reset-ticks
 end
 

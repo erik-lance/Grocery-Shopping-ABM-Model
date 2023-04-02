@@ -1,0 +1,216 @@
+to go-to-floor [id]
+  let self-patch patch-here
+  let self-id [shelf_id] of self-patch
+  let floor-patch one-of patches with [shelf_id = id]
+  let self-x [pxcor] of self-patch
+  let self-y [pycor] of self-patch
+  let floor-x [pxcor] of floor-patch
+  let floor-y [pycor] of floor-patch
+  
+  ; If already in same aisle, go to it
+  if (in-same-aisle self-id id)
+  [
+     face floor-patch
+     fd 1
+  ]
+  
+  ; If already in same row, go to it
+  if (in-same-row self-id id)
+  [
+     face floor-patch
+     fd 1
+  ]
+  
+  ; ----------------------------------------- ;
+  ; ----------- PATHING ALGORITHM ----------- ;
+  ; ----------------------------------------- ;
+  
+  ; ------------- Currently in row, find aisle to enter
+  if is-in-row 
+  [
+    ifelse (not in-same-aisle self-id id)
+    [
+      if (self-x < floor-x) [ set heading 90 ]  ; Head east
+      if (self-x > floor-y) [ set heading 270]  ; Head west
+      fd 1
+    ]
+    [
+      ; Precaution
+      face floor-patch
+      fd 1
+    ]
+  ]
+  
+  ; ------------- Exit aisle by going to row
+  if is-in-aisle
+  [
+    (go-to-closest-aisle-exit self-y)  ; Goes to back or front-row
+  
+    ; Somehow at counter side, try to go to front-row
+    if (self-y <= -5)
+    [
+      set heading 0
+      fd 1
+    ]
+  ]
+
+end
+
+
+to-report is-in-aisle
+  ; Checks if customer is in aisle so they can browse vertically
+  let on-patch patch-here
+  let x-coord [pxcor] of on-patch
+  let aisle-1 (in-aisle-1 x-coord)
+  let aisle-2 (in-aisle-2 x-coord)
+  let aisle-3 (in-aisle-3 x-coord)
+  let aisle-4 (in-aisle-4 x-coord)
+  
+  report aisle-1 or aisle-2 or aisle-3 or aisle-4
+end
+
+to-report is-in-row
+  ; Checks if customer can move horizontally.
+  let on-patch patch-here
+  let y-coord [pycor] of on-patch
+  let back-row (in-back-row y-coord)
+  let front-row (in-front-row y-coord)
+  report back-row or front-row
+end
+
+to-report in-same-aisle [self_id floor_id] report ((get-aisle self_id) = (get-aisle floor_id)) end
+to-report in-same-row [self_id floor_id] report ((get-row self_id) = (get-row floor_id)) end
+
+to-report in-aisle-1 [x] report (x >= -14 and x <= -11) end
+to-report in-aisle-2 [x] report (x >= -6  and x <= -3 ) end
+to-report in-aisle-3 [x] report (x >= -3  and x <= -6 ) end
+to-report in-aisle-4 [x] report (x >= 11  and x <= 14 ) end
+to-report in-back-row  [y] report (y >= -14 and y <= -12) end
+to-report in-front-row [y] report (y >= -5  and y <= 0  ) end
+
+to-report get-aisle [id]
+  let this-patch one-of patches with [shelf_id = id]
+  let x-coord [pxcor] of this-patch
+  
+  if (in-aisle-1 x-coord) [report 1]
+  if (in-aisle-2 x-coord) [report 2]
+  if (in-aisle-3 x-coord) [report 3]
+  if (in-aisle-4 x-coord) [report 4]
+  
+  report -1
+end
+
+to-report get-row [id]
+  let this-patch one-of patches with [shelf_id = id]
+  let y-coord [pycor] of this-patch
+  
+  if (in-front-row y-coord) [report 1]
+  if (in-back-row y-coord)  [report 2]
+  
+  report -1
+end
+
+to go-to-closest-aisle-exit [y]
+  ; Exit to back-row since it's closer
+  if (y >= 5)
+  [
+    set heading 0
+    fd 1
+  ]
+    
+  ; Exit to front-row since it's closer
+  if (y < 5 and y >= 0)
+  [
+    set heading 180
+    fd 1
+  ]
+end
+
+to-report get-closest-floor-to-shelf [id]
+  let shelf-patch one-of patches with [shelf_id = id]
+  
+  ; Finds white patches around shelf patch
+  let white-patches [patches with [pcolor = white] in-radius 5] of shelf-patch
+  
+  ; Finds the closest patch to shelf
+  let closest-patch min-one-of white-patches [distance shelf-patch]
+  
+  ; Returns closest patch
+  report closest-patch
+end
+
+to-report get-closest-shelf [id]
+  let closest-shelf nobody
+  let min-distance 99999
+  
+  ; Loops through all patches with same product_id finding the closest one
+  ask patches with [product_id = id] 
+  [
+    let distance-to-customer distance myself
+    if distance-to-customer < min-distance 
+    [
+      set min-distance distance-to-customer
+      set closest-shelf self
+    ]
+  ]
+  
+  report closest-shelf
+end
+
+
+; ----- Cashier Algo ----- ;
+
+to-report in-line-1 [x] report (x >= 11 and x <= 12) end
+to-report in-line-2 [x] report (x >= 7  and x <= 8 ) end
+to-report in-line-3 [x] report (x >= 3  and x <= 4 ) end
+to-report in-line-4 [x] report (x >= -1 and x <= 0 ) end
+to-report in-line-5 [x] report (x >= -5 and x <= -4) end
+
+to-report in-cashier-line [x]
+  report (in-line-1 x) or (in-line-2 x) or (in-line-3 x) or (in-line-4 x) or (in-line-5 x)
+end
+
+to go-to-closest-cashier
+  let self-patch patch-here
+  let x-coord [pxcor] of self-patch
+  let y-coord [pycor] of self-patch
+  
+  ; If already within cashier-line x axis
+  ifelse (in-cashier-line x-coord and y-coord > -12) 
+  [
+    set heading 180  ; Head south
+    fd 1
+  ]
+  [  
+    ifelse (y-coord <= -12)
+    [
+      ; Do nothing for now.
+    ]
+    [
+      ; ELSE If not in cashier line axis
+      (go-to-a-cashier-line x-coord y-coord)
+    ]
+  ]
+  
+end
+
+to go-to-a-cashier-line [x y]
+  ifelse (is-in-row)
+  [
+    ifelse (x < 10)
+    [
+      set heading 90   ; Head east if in row after cashier line 1
+      fd 1
+    ]
+    [
+      set heading 270  ; Head west if in row before cashier line 1
+      fd 1
+    ]
+  ]
+  [  ; If not in row, but in aisle
+    (go-to-closest-aisle-exit y)
+  ]
+end
+
+
+

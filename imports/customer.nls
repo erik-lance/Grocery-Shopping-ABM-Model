@@ -1,29 +1,74 @@
 ; NetLogo Customer NLS file
 ; Customer is a turtle
 breed [customers customer]
-turtles-own [
+customers-own [
   basket
+  shopping-list
+  selected-product
+  selected-shelf
 ]
 
 ; Spawns customer
 to spawn-customer [num_customers]
   create-customers num_customers [
     set basket []
+    set shopping-list generate-bucket-list
+    set selected-shelf -1
+    ;set selected-product 
     move-to one-of patches with [pcolor = green ]
     set color grey
     set shape "person"
-    set size 2
+    set size 2  
   ]
   
 end
 
+to choose-product
+  if not empty? shopping-list [
+    let product first shopping-list
+    set selected-product item 0 product
+  ]
+end
+
 ; Move customer
 to move-customer
-    ; Placeholder movement, just goes to the exit for now
-    let exit-patch one-of patches with [pcolor = red]
-    face exit-patch
-    fd 1
+  ; Close-shelf contains the patch of the nearest shelf
+  ; with a certain id. 1 is a placeholder here.
+  let close-shelf get-closest-shelf 1
+  
+  ; Close-path contains the patch of the nearest patch
+  ; to the chosen shelf.
+  let close-path get-closest-floor-to-shelf [shelf_id] of close-shelf
+  
+  
+  ; This goes to a nearby patch to the chosen shelf
+  ;go-to-floor [shelf_id] of close-path
+  
+  
+  ; This must be called once shopping is done. Will not work if immediately called.
+  ; It assumes customer is at any patch behind the cashier line.
+  ;go-to-closest-cashier
+  
+  
+  ; For debugging nearby shelf movement.
+  ;print close-shelf
+  ;print "Floor: "
+  ;print close-path
+  
+  
+  ; This sends the customer to exit.
+  ;let exit-patch one-of patches with [pcolor = red]
+  ;face exit-patch
+  ;fd 1
+  
 end
+
+to move-to-closest-shelf
+  
+end
+
+
+
 
 to add-basket [grocery_item]
   
@@ -82,3 +127,5 @@ to-report generate-bucket-list
   ]
 
 end
+
+
