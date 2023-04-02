@@ -16,15 +16,25 @@ to draw-entrance-exit
 end
 
 to draw-shelves
+  let shelf-count 0  ; initialize shelf ID counter
+  
   ;shelf border
-  ask patches with [((pxcor >= 15 or pxcor <= -15) and pycor > 0) or pycor >= 15] [set pcolor brown];
+  ask patches with [((pxcor >= 15 or pxcor <= -15) and pycor > 0) or pycor >= 15] [
+    set pcolor brown
+    set shelf_id shelf-count  ; assign unique shelf ID
+    set shelf-count shelf-count + 1  ; increment shelf ID counter
+  ]
+  
   ;shelves
   ask patches with [pxcor < 15 and pxcor > -15 and pycor > 0 and pycor < 12] [
     if (pxcor >= -2 and pxcor <= 2) [set pcolor brown]
     if (pxcor >= 7 and pxcor <= 10) [set pcolor brown]
     if (pxcor >= -10 and pxcor <= -7) [set pcolor brown]
+    set shelf_id shelf-count  ; assign unique shelf ID
+    set shelf-count shelf-count + 1  ; increment shelf ID counter
   ]
 end
+
 
 to draw-checkout
   ;cashiers
