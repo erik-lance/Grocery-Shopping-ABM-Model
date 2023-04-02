@@ -44,19 +44,7 @@ to go-to-floor [id]
   ; ------------- Exit aisle by going to row
   if is-in-aisle
   [
-    ; Exit to back-row since it's closer
-    if (self-y >= 5)
-    [
-      set heading 0
-      fd 1
-    ]
-    
-    ; Exit to front-row since it's closer
-    if (self-y < 5 and self-y >= 0)
-    [
-      set heading 180
-      fd 1
-    ]
+    (go-to-closest-aisle-exit self-y)  ; Goes to back or front-row
   
     ; Somehow at counter side, try to go to front-row
     if (self-y <= -5)
@@ -122,8 +110,20 @@ to-report get-row [id]
   report -1
 end
 
-to-report get-closest-aisle-exit 
-
+to go-to-closest-aisle-exit [y]
+  ; Exit to back-row since it's closer
+  if (y >= 5)
+  [
+    set heading 0
+    fd 1
+  ]
+    
+  ; Exit to front-row since it's closer
+  if (y < 5 and y >= 0)
+  [
+    set heading 180
+    fd 1
+  ]
 end
 
 to-report get-closest-floor-to-shelf [id]
@@ -156,3 +156,61 @@ to-report get-closest-shelf [id]
   
   report closest-shelf
 end
+
+
+; ----- Cashier Algo ----- ;
+
+to-report in-line-1 [x] report (x >= 11 and x <= 12) end
+to-report in-line-2 [x] report (x >= 7  and x <= 8 ) end
+to-report in-line-3 [x] report (x >= 3  and x <= 4 ) end
+to-report in-line-4 [x] report (x >= -1 and x <= 0 ) end
+to-report in-line-5 [x] report (x >= -5 and x <= -4) end
+
+to-report in-cashier-line [x]
+  report (in-line-1 x) or (in-line-2 x) or (in-line-3 x) or (in-line-4 x) or (in-line-5 x)
+end
+
+to go-to-closest-cashier
+  let self-patch patch-here
+  let x-coord [pxcor] of self-patch
+  let y-coord [pycor] of self-patch
+  
+  ; If already within cashier-line x axis
+  ifelse (in-cashier-line x-coord and y-coord > -12) 
+  [
+    set heading 180  ; Head south
+    fd 1
+  ]
+  [  
+    ifelse (y-coord <= -12)
+    [
+      ; Do nothing for now.
+    ]
+    [
+      ; ELSE If not in cashier line axis
+      (go-to-a-cashier-line x-coord y-coord)
+    ]
+  ]
+  
+end
+
+to go-to-a-cashier-line [x y]
+  ifelse (is-in-row)
+  [
+    ifelse (x < 10)
+    [
+      set heading 90   ; Head east if in row after cashier line 1
+      fd 1
+    ]
+    [
+      set heading 270  ; Head west if in row before cashier line 1
+      fd 1
+    ]
+  ]
+  [  ; If not in row, but in aisle
+    (go-to-closest-aisle-exit y)
+  ]
+end
+
+
+
