@@ -1,14 +1,19 @@
 ; NetLogo Customer NLS file
 ; Customer is a turtle
 breed [customers customer]
-turtles-own [
+customers-own [
   basket
+  shopping-list
+  selected-product
+  selected-shelf
 ]
 
 ; Spawns customer
 to spawn-customer [num_customers]
   create-customers num_customers [
     set basket []
+    ;set shopping-list generate-bucket-list
+    ;set selected-product 
     move-to one-of patches with [pcolor = green ]
     set color grey
     set shape "person"
@@ -17,12 +22,19 @@ to spawn-customer [num_customers]
   
 end
 
+to choose-product
+  if not empty? shopping-list [
+    
+  ]
+end
+
 ; Move customer
 to move-customer
     ; Placeholder movement, just goes to the exit for now
     let exit-patch one-of patches with [pcolor = red]
     face exit-patch
     fd 1
+    print dist-cust-to-item 1
 end
 
 to add-basket [grocery_item]
@@ -81,4 +93,11 @@ to-report generate-bucket-list
     
   ]
 
+end
+
+
+to-report dist-cust-to-item [product-id]
+  ; Report distance of customer to the closest shelf with a specific product id.
+  let closest-shelf min-one-of patches with [product_id = product-id] [    distance myself  ]
+  report distance closest-shelf
 end
