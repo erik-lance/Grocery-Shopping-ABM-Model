@@ -1,7 +1,6 @@
 
 to create-map
-  ask patches [set pcolor white];
-  
+  draw-floor
   draw-entrance-exit
   draw-shelves
   draw-checkout
@@ -13,6 +12,17 @@ to draw-entrance-exit
   ask patches with [pxcor >= 11 and pxcor < 15 and pycor <= -15] [set pcolor red];
   ;entrance
   ask patches with [pxcor <= -11 and pxcor > -15 and pycor <= -15] [set pcolor green];
+end
+
+to draw-floor
+  let floor-count -1  ; initialize floor
+  ask patches
+  [
+    set pcolor white
+    set shelf_id floor-count  ; assign unique floor ID
+    set floor-count floor-count - 1  ; decrement floor ID counter
+  ]
+
 end
 
 to draw-shelves
