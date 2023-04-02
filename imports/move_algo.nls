@@ -1,11 +1,69 @@
 to go-to-floor [id]
+  let self-patch patch-here
+  let self-id [shelf_id] of self-patch
   let floor-patch one-of patches with [shelf_id = id]
+  let self-x [pxcor] of self-patch
+  let self-y [pycor] of self-patch
   let floor-x [pxcor] of floor-patch
   let floor-y [pycor] of floor-patch
   
+  ; If already in same aisle, go to it
+  if (in-same-aisle self-id id)
+  [
+     face floor-patch
+     fd 1
+  ]
+  
+  ; If already in same row, go to it
+  if (in-same-row self-id id)
+  [
+     face floor-patch
+     fd 1
+  ]
+  
+  ; ----------------------------------------- ;
+  ; ----------- PATHING ALGORITHM ----------- ;
+  ; ----------------------------------------- ;
+  
+  ; ------------- Currently in row, find aisle to enter
   if is-in-row 
   [
-    set heading 90
+    ifelse (not in-same-aisle self-id id)
+    [
+      if (self-x < floor-x) [ set heading 90 ]  ; Head east
+      if (self-x > floor-y) [ set heading 270]  ; Head west
+      fd 1
+    ]
+    [
+      ; Precaution
+      face floor-patch
+      fd 1
+    ]
+  ]
+  
+  ; ------------- Exit aisle by going to row
+  if is-in-aisle
+  [
+    ; Exit to back-row since it's closer
+    if (self-y >= 5)
+    [
+      set heading 0
+      fd 1
+    ]
+    
+    ; Exit to front-row since it's closer
+    if (self-y < 5 and self-y >= 0)
+    [
+      set heading 180
+      fd 1
+    ]
+  
+    ; Somehow at counter side, try to go to front-row
+    if (self-y <= -5)
+    [
+      set heading 0
+      fd 1
+    ]
   ]
 
 end
@@ -32,8 +90,8 @@ to-report is-in-row
   report back-row or front-row
 end
 
-to-report is-in-same-aisle [self_id floor_id] report ((get-aisle self_id) = (get-aisle floor_id)) end
-to-report is-in-same-row [self_id floor_id] report ((get-row self_id) = (get-row floor_id)) end
+to-report in-same-aisle [self_id floor_id] report ((get-aisle self_id) = (get-aisle floor_id)) end
+to-report in-same-row [self_id floor_id] report ((get-row self_id) = (get-row floor_id)) end
 
 to-report in-aisle-1 [x] report (x >= -14 and x <= -11) end
 to-report in-aisle-2 [x] report (x >= -6  and x <= -3 ) end
