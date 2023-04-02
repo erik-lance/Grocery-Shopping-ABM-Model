@@ -1,12 +1,18 @@
+to go-to-floor [id]
+  
+
+
+end
+
 
 to-report is-in-aisle
   ; Checks if customer is in aisle so they can browse vertically
   let on-patch patch-here
   let x-coord [pxcor] of on-patch
-  let aisle-1 (x-coord >= -14 and x-coord <= -11)
-  let aisle-2 (x-coord >= -6 and x-coord <= -3)
-  let aisle-3 (x-coord >= 3 and x-coord <= 6)
-  let aisle-4 (x-coord >= 11 and x-coord <= 14)
+  let aisle-1 (in-aisle-1 x-coord)
+  let aisle-2 (in-aisle-2 x-coord)
+  let aisle-3 (in-aisle-3 x-coord)
+  let aisle-4 (in-aisle-4 x-coord)
   
   report aisle-1 or aisle-2 or aisle-3 or aisle-4
 end
@@ -15,8 +21,17 @@ to-report is-in-row
   ; Checks if customer can move horizontally.
   let on-patch patch-here
   let y-coord [pycor] of on-patch
-  report y-coord >= -14 and y-coord <= -12
+  let back-row (in-back-row y-coord)
+  let front-row (in-front-row y-coord)
+  report back-row or front-row
 end
+
+to-report in-aisle-1 [x] report (x >= -14 and x <= -11) end
+to-report in-aisle-2 [x] report (x >= -6  and x <= -3 ) end
+to-report in-aisle-3 [x] report (x >= -3  and x <= -6 ) end
+to-report in-aisle-4 [x] report (x >= 11  and x <= 14 ) end
+to-report in-back-row  [y] report (y >= -14 and y <= -12) end
+to-report in-front-row [y] report (y >= -5  and y <= 0  ) end
 
 
 to-report get-closest-floor-to-shelf [id]
