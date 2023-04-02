@@ -32,23 +32,35 @@ end
 
 ; Move customer
 to move-customer
+  ; Close-shelf contains the patch of the nearest shelf
+  ; with a certain id. 1 is a placeholder here.
+  let close-shelf get-closest-shelf 1
   
-  ;move-to-closest-shelf
-
-  ; Placeholder movement, just goes to the exit for now
+  ; Close-path contains the patch of the nearest patch
+  ; to the chosen shelf.
+  let close-path get-closest-floor-to-shelf [shelf_id] of close-shelf
+  
+  
+  ; This goes to a nearby patch to the chosen shelf
+  ;go-to-floor [shelf_id] of close-path
+  
+  
+  ; This must be called once shopping is done. Will not work if immediately called.
+  ; It assumes customer is at any patch behind the cashier line.
+  ;go-to-closest-cashier
+  
+  
+  ; For debugging nearby shelf movement.
+  ;print close-shelf
+  ;print "Floor: "
+  ;print close-path
+  
+  
+  ; This sends the customer to exit.
   ;let exit-patch one-of patches with [pcolor = red]
   ;face exit-patch
   ;fd 1
-  let close-shelf get-closest-shelf 1
-  let close-path get-closest-floor-to-shelf [shelf_id] of close-shelf
   
-  go-to-floor [shelf_id] of close-path
-  
-  
-  print close-shelf
-  
-  print "Floor naman: "
-  print close-path
 end
 
 to move-to-closest-shelf
