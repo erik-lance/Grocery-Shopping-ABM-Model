@@ -13,11 +13,12 @@ to spawn-customer [num_customers]
   create-customers num_customers [
     set basket []
     set shopping-list generate-bucket-list
+    set selected-shelf -1
     ;set selected-product 
     move-to one-of patches with [pcolor = green ]
     set color grey
     set shape "person"
-    set size 2
+    set size 2  
   ]
   
 end
@@ -26,18 +27,31 @@ to choose-product
   if not empty? shopping-list [
     let product first shopping-list
     set selected-product item 0 product
-    set selected-shelf -1 ; reset selected-shelf
   ]
 end
 
 ; Move customer
 to move-customer
-    ; Placeholder movement, just goes to the exit for now
-    let exit-patch one-of patches with [pcolor = red]
-    face exit-patch
-    fd 1
-    print get-closest-shelf 1
+  
+  move-to-closest-shelf
+
+  ; Placeholder movement, just goes to the exit for now
+  ;let exit-patch one-of patches with [pcolor = red]
+  ;face exit-patch
+  ;fd 1
+  let close-shelf get-closest-shelf 1
+  print close-shelf
+  
+  print "Floor naman: "
+  print get-closest-floor-to-shelf [shelf_id] of close-shelf
 end
+
+to move-to-closest-shelf
+  
+end
+
+
+
 
 to add-basket [grocery_item]
   
@@ -98,6 +112,19 @@ to-report generate-bucket-list
 end
 
 
+to-report get-closest-floor-to-shelf [id]
+  let shelf-patch one-of patches with [shelf_id = id]
+  
+  ; Finds white patches around shelf patch
+  let white-patches [patches with [pcolor = white] in-radius 5] of shelf-patch
+  
+  ; Finds the closest patch to shelf
+  let closest-patch min-one-of white-patches [distance shelf-patch]
+  
+  ; Returns closest patch
+  report closest-patch
+end
+
 to-report get-closest-shelf [id]
   let closest-shelf nobody
   let min-distance 99999
@@ -113,5 +140,5 @@ to-report get-closest-shelf [id]
     ]
   ]
   
-  report [shelf_id] of closest-shelf
+  report closest-shelf
 end
