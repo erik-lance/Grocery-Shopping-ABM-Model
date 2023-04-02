@@ -1,0 +1,30 @@
+to-report get-closest-floor-to-shelf [id]
+  let shelf-patch one-of patches with [shelf_id = id]
+  
+  ; Finds white patches around shelf patch
+  let white-patches [patches with [pcolor = white] in-radius 5] of shelf-patch
+  
+  ; Finds the closest patch to shelf
+  let closest-patch min-one-of white-patches [distance shelf-patch]
+  
+  ; Returns closest patch
+  report closest-patch
+end
+
+to-report get-closest-shelf [id]
+  let closest-shelf nobody
+  let min-distance 99999
+  
+  ; Loops through all patches with same product_id finding the closest one
+  ask patches with [product_id = id] 
+  [
+    let distance-to-customer distance myself
+    if distance-to-customer < min-distance 
+    [
+      set min-distance distance-to-customer
+      set closest-shelf self
+    ]
+  ]
+  
+  report closest-shelf
+end
