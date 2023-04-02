@@ -3,6 +3,7 @@ __includes [
   "imports/items.nls"
   "imports/environment.nls"
   "imports/debug.nls"
+  "imports/move_algo.nls"
 ]
 
 extensions [csv]
@@ -34,7 +35,6 @@ to setup
   ;for debugging
   ;debug-shelves
   ;debug-bucket
-
   reset-ticks
 end
 
