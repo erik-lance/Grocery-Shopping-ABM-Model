@@ -96,8 +96,20 @@ to-report generate-bucket-list
 end
 
 
-to-report dist-cust-to-item [product-id]
-  ; Report distance of customer to the closest shelf with a specific product id.
-  let closest-shelf min-one-of patches with [product_id = product-id] [    distance myself  ]
-  report distance closest-shelf
+to-report dist-cust-to-item [id]
+  let closest-shelf nobody
+  let min-distance 99999
+  
+  ; Loops through all patches with same product_id finding the closest one
+  ask patches with [product_id = id] 
+  [
+    let distance-to-customer distance myself
+    if distance-to-customer < min-distance 
+    [
+      set min-distance distance-to-customer
+      set closest-shelf self
+    ]
+  ]
+  
+  report [shelf_id] of closest-shelf
 end
