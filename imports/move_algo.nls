@@ -32,10 +32,8 @@ to-report is-in-row
   report back-row or front-row
 end
 
-to-report is-in-same-aisle [self_id floor_id]
-  
-
-end
+to-report is-in-same-aisle [self_id floor_id] report ((get-aisle self_id) = (get-aisle floor_id)) end
+to-report is-in-same-row [self_id floor_id] report ((get-row self_id) = (get-row floor_id)) end
 
 to-report in-aisle-1 [x] report (x >= -14 and x <= -11) end
 to-report in-aisle-2 [x] report (x >= -6  and x <= -3 ) end
