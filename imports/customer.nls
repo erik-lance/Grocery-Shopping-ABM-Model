@@ -33,17 +33,22 @@ end
 ; Move customer
 to move-customer
   
-  move-to-closest-shelf
+  ;move-to-closest-shelf
 
   ; Placeholder movement, just goes to the exit for now
   ;let exit-patch one-of patches with [pcolor = red]
   ;face exit-patch
   ;fd 1
   let close-shelf get-closest-shelf 1
+  let close-path get-closest-floor-to-shelf [shelf_id] of close-shelf
+  
+  go-to-floor [shelf_id] of close-path
+  
+  
   print close-shelf
   
   print "Floor naman: "
-  print get-closest-floor-to-shelf [shelf_id] of close-shelf
+  print close-path
 end
 
 to move-to-closest-shelf
