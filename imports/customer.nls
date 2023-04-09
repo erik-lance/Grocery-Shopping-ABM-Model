@@ -45,9 +45,9 @@ to move-customer
   go-to-floor [shelf_id] of close-path
   
   print shopping-list ;print shopping list of customer
+  
   ;if customer reaches the floor of target shelf
   if(patch-here = close-path)[
-    let id [shelf_id] of close-shelf
     let prodid [product_id] of close-shelf
     let prodindex 0
     
@@ -61,7 +61,7 @@ to move-customer
       ;if item in shelf is in bucket list
       if(bucket-item-id = prodid)[  
         ;reduce quantity of item in the shelf
-        ask patches with [shelf_id = id] [
+        ask patches with [shelf_id = ([shelf_id] of close-shelf)] [
           set shelf-quantity product_quantity ; shelf quantity is a temp variable to use value of product_quantity outside of "ask patches"
           set found true
           ifelse (bucket-item-quantity <= product_quantity)[
@@ -94,11 +94,6 @@ to move-customer
           set basket lput basket-item basket
         ]
       ]
-      
-      print ("bucket item id is ")
-      print bucket-item-id
-      print ("prodid is ")
-      print [product_id] of close-shelf
       set prodindex prodindex + 1
     ]
     print("After for each")
