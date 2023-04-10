@@ -75,7 +75,7 @@ to move-customer
         ;update bucket list and basket
         ifelse (bucket-item-quantity <= shelf-quantity and found = true)[
           ;remove from shopping list when shelf quantity is equal or bigger than required
-          set basket lput (item prodindex shopping-list) basket
+          add-basket (item prodindex shopping-list) 
           set shopping-list remove-item prodindex shopping-list 
         ]
         [
@@ -91,7 +91,7 @@ to move-customer
           let basket-item []
           set basket-item lput bucket-item-id basket-item
           set basket-item lput shelf-quantity basket-item
-          set basket lput basket-item basket
+          add-basket basket-item 
         ]
       ]
       set prodindex prodindex + 1
@@ -130,7 +130,7 @@ end
 
 
 to add-basket [grocery_item]
-  
+  set basket lput grocery_item basket
 end
 
 to-report generate-bucket-list
