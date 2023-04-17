@@ -6,11 +6,14 @@ customers-own [
   shopping-list
   selected-product
   selected-shelf
+  tolerance
 ]
 
 ; Spawns customer
 to spawn-customer [num_customers]
+  set customers-alive (customers-alive + num_customers)
   create-customers num_customers [
+    set tolerance random 26 + 25 ;sets random tolerance between 25-50
     set basket []
     set shopping-list generate-bucket-list
     set selected-shelf -1
@@ -18,7 +21,7 @@ to spawn-customer [num_customers]
     move-to one-of patches with [pcolor = green ]
     set color grey
     set shape "person"
-    set size 2  
+    set size 2
   ]
   
 end
@@ -55,11 +58,19 @@ to move-customer
   ;print "Floor: "
   ;print close-path
   
-  
+  if customers-alive > tolerance [
+    let exit-patch one-of patches with [pcolor = red]
+    face exit-patch
+    fd 1
+  ]
   ; This sends the customer to exit.
   ;let exit-patch one-of patches with [pcolor = red]
   ;face exit-patch
   ;fd 1
+  if pcolor = red [
+    set customers-alive (customers-alive - 1)
+    die
+  ]
   
 end
 

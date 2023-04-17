@@ -7,12 +7,12 @@ __includes [
 ]
 
 extensions [csv]
-globals [data]
+globals [data customers-alive]
 
 to setup
   clear-all
   create-map
-
+  set customers-alive 0
   load-list
 
   ; create the customer
@@ -119,6 +119,17 @@ NIL
 NIL
 NIL
 1
+
+MONITOR
+691
+62
+832
+107
+NIL
+customers-alive
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
