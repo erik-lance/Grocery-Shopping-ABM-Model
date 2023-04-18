@@ -207,6 +207,21 @@ customer-movement-speed
 NIL
 HORIZONTAL
 
+SLIDER
+692
+271
+886
+304
+max-items
+max-items
+1
+100
+11.0
+1
+1
+NIL
+HORIZONTAL
+
 @#$#@#$#@
 ## WHAT IS IT?
 
