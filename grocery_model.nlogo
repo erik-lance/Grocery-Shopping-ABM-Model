@@ -131,10 +131,10 @@ customers-alive
 11
 
 SLIDER
-702
-173
-874
-206
+691
+185
+884
+218
 customer-distance
 customer-distance
 0
@@ -146,10 +146,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-697
-258
-869
-291
+691
+227
+885
+260
 checkout-speed
 checkout-speed
 0
@@ -191,6 +191,21 @@ Debug Options\n
 10
 0.0
 1
+
+SLIDER
+691
+145
+885
+178
+customer-movement-speed
+customer-movement-speed
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
