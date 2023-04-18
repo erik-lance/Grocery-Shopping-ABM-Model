@@ -23,16 +23,16 @@ to setup
   print "________import done_________"
 
   ;temporary assignment of items per shelf
-  ask patches [
-    ifelse pcolor = brown ;if shelf, get item
-    [
+  ;ask patches [
+    ;ifelse pcolor = brown ;if shelf, get item
+    ;[
         ; random X where X is the amount of items (excluding header)
-        let id (random 15) + 1
-        fill-shelf id 50
-    ]
+        ; let id (random 17) + 1
+        ; fill-shelf id 50
+    ;]
     ;else product id is -1
-    [ set product_id -1 ]
-  ]
+    ;[ set product_id -1 ]
+  ;]
 
   ;for debugging
   debug-tools
@@ -45,9 +45,9 @@ to go
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
+209
 10
-647
+646
 448
 -1
 -1
@@ -170,7 +170,7 @@ SWITCH
 109
 print-bucket
 print-bucket
-1
+0
 1
 -1000
 
@@ -219,7 +219,7 @@ max-items
 max-items
 1
 100
-11.0
+10.0
 1
 1
 NIL

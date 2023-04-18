@@ -3,8 +3,9 @@ to create-map
   draw-floor
   draw-entrance-exit
   draw-shelves
+  draw-shelf-colors
   draw-checkout
-  draw-backroom
+  ;draw-backroom
 end
 
 to draw-entrance-exit
@@ -57,4 +58,14 @@ to draw-backroom
   ;backroom
   ask patches with [pxcor >= 11 and pxcor < 15 and pycor >= 15] [set pcolor 12];
 
+end
+
+to draw-shelf-colors
+  ask patches [
+    if pcolor = brown ;if shelf, get item 
+    [
+      if ((pxcor >= 1 and pxcor < 10) and pycor >= 15)[ set pcolor 17]
+    ]
+  ]
+  
 end
