@@ -1,3 +1,7 @@
+to debug-tools
+  ;debug-bucket
+  ;debug-shelves
+end
 to debug-bucket
   print "___ DEBUG: Customer Bucket List ___"
   print generate-bucket-list
