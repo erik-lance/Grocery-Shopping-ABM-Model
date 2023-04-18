@@ -2,6 +2,7 @@ to debug-tools
   if print-bucket = true [debug-bucket]
   if color-shelves = true [debug-shelves]
 end
+
 to debug-bucket
   print "___ DEBUG: Customer Bucket List ___"
   print generate-bucket-list
@@ -12,5 +13,8 @@ to debug-shelves
   ask patches[
     if product_id = 0 [set pcolor orange]
     if product_id = 1 [set pcolor yellow]
+    if product_id = 2 [set pcolor pink]
+    if product_id = 3 [set pcolor magenta]
+    if product_id = 4 [set pcolor lime]
   ]
 end
