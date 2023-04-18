@@ -45,7 +45,7 @@ to move-customer
   
   
   ; This goes to a nearby patch to the chosen shelf
-  ;go-to-floor [shelf_id] of close-path
+  go-to-floor [shelf_id] of close-path
   
   
   ; This must be called once shopping is done. Will not work if immediately called.
@@ -61,7 +61,7 @@ to move-customer
   if customers-alive > tolerance [
     let exit-patch one-of patches with [pcolor = red]
     face exit-patch
-    fd 1
+    customer-move-forward
   ]
   ; This sends the customer to exit.
   ;let exit-patch one-of patches with [pcolor = red]
@@ -74,8 +74,9 @@ to move-customer
   
 end
 
-to move-to-closest-shelf
-  
+to customer-move-forward
+  ; This is now the main procedure used for all move operations with customer.
+  fd customer-movement-speed / 100
 end
 
 

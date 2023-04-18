@@ -1,6 +1,6 @@
 to debug-tools
-  ;debug-bucket
-  ;debug-shelves
+  if print-bucket = true [debug-bucket]
+  if color-shelves = true [debug-shelves]
 end
 to debug-bucket
   print "___ DEBUG: Customer Bucket List ___"
