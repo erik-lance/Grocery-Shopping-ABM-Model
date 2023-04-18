@@ -7,6 +7,7 @@ customers-own [
   selected-product
   selected-shelf
   tolerance
+  target-patch
 ]
 
 ; Spawns customer
@@ -43,16 +44,28 @@ to move-customer
     ; with a certain id. 1 is a placeholder here.
     let close-shelf get-closest-shelf selected-product
   
+  
     ; Close-path contains the patch of the nearest patch
     ; to the chosen shelf.
-    let close-path get-closest-floor-to-shelf [shelf_id] of close-shelf
-  
+    let close-path target-patch
+    if (target-patch = 0)
+    [
+      set target-patch get-closest-floor-to-shelf [shelf_id] of close-shelf
+      set close-path target-patch
+    ]
   
     ; This goes to a nearby patch to the chosen shelf
     go-to-floor [shelf_id] of close-path
   
     ;if customer reaches the floor of target shelf
-    if(patch-here = close-path)[
+    let close-to-floor false
+    if [distance myself] of close-path <= 2
+    [
+      set close-to-floor true
+    ]
+    
+    
+    if(close-to-floor = true)[
       let prodid [product_id] of close-shelf
       let prodindex 0
       
@@ -75,6 +88,7 @@ to move-customer
         set prodindex prodindex + 1
       ]
       print basket
+      set target-patch 0
     ]
   ]
 
@@ -82,7 +96,8 @@ to move-customer
   ; It assumes customer is at any patch behind the cashier line.
   if empty? shopping-list
   [
-    go-to-closest-cashier
+    if not empty? basket
+    [go-to-closest-cashier]
 
     
     ifelse empty? basket [
