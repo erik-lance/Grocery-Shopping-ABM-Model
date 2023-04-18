@@ -261,9 +261,9 @@ SLIDER
 445
 ticks-per-spawn
 ticks-per-spawn
-0
+1
 100
-10.0
+20.0
 1
 1
 NIL

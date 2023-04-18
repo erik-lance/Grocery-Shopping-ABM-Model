@@ -180,7 +180,7 @@ to-report generate-bucket-list
 end
 
 to spawner[num]
-  spawn-customer num
+  spawn-customer random (num + 1)
 end
 
 
