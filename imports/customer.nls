@@ -74,6 +74,7 @@ to move-customer
         ]
         set prodindex prodindex + 1
       ]
+      print basket
     ]
   ]
 
@@ -177,5 +178,11 @@ to-report generate-bucket-list
   ]
 
 end
+
+to spawner[num]
+  spawn-customer random (num + 1)
+end
+
+
 
 
