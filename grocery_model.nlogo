@@ -179,17 +179,6 @@ print-bucket
 1
 -1000
 
-SWITCH
-676
-392
-799
-425
-color-shelves
-color-shelves
-1
-1
--1000
-
 TEXTBOX
 677
 330
