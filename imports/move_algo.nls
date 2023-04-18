@@ -7,11 +7,20 @@ to go-to-floor [id]
   let floor-x [pxcor] of floor-patch
   let floor-y [pycor] of floor-patch
   
+  if (in-aisle-1 self-x and self-y < -5)
+  [
+    ; Enter front row first
+    set heading 0
+    customer-move-forward
+    stop
+  ]
+  
   ; If already in same aisle, go to it
   if (in-same-aisle self-id id)
   [
      face floor-patch
      customer-move-forward
+     stop
   ]
   
   ; If already in same row, go to it
@@ -19,6 +28,7 @@ to go-to-floor [id]
   [
      face floor-patch
      customer-move-forward
+     stop
   ]
   
   ; ----------------------------------------- ;
@@ -39,19 +49,24 @@ to go-to-floor [id]
       face floor-patch
       customer-move-forward
     ]
+    stop
   ]
   
   ; ------------- Exit aisle by going to row
   if is-in-aisle
   [
-    (go-to-closest-aisle-exit self-y)  ; Goes to back or front-row
-  
     ; Somehow at counter side, try to go to front-row
     if (self-y <= -5)
     [
       set heading 0
       customer-move-forward
+      stop
     ]
+    
+    (go-to-closest-aisle-exit self-y)  ; Goes to back or front-row
+  
+    
+    stop
   ]
 
 end
@@ -116,6 +131,7 @@ to go-to-closest-aisle-exit [y]
   [
     set heading 0
     customer-move-forward
+    stop
   ]
     
   ; Exit to front-row since it's closer
@@ -123,6 +139,7 @@ to go-to-closest-aisle-exit [y]
   [
     set heading 180
     customer-move-forward
+    stop
   ]
 end
 
@@ -195,7 +212,8 @@ to go-to-closest-cashier
 end
 
 to go-to-a-cashier-line [x y]
-  ifelse (is-in-row)
+  ; If in front row, try to find a cashier.
+  ifelse (in-front-row y)
   [
     ifelse (x < 10)
     [
@@ -207,8 +225,33 @@ to go-to-a-cashier-line [x y]
       customer-move-forward
     ]
   ]
-  [  ; If not in row, but in aisle
-    (go-to-closest-aisle-exit y)
+  [
+    ; Else, if in the back row, try to find an aisle to exit from
+    ifelse (in-back-row y)
+    [
+      ifelse (is-in-aisle)
+      [
+        ; This is for moving out of back-row
+        set heading 180
+        customer-move-forward
+      ]
+      [
+        ifelse (x >= 0) [
+          set heading 90  ; Head east
+          customer-move-forward
+        ]
+        [
+          set heading 270  ; Head west
+           customer-move-forward
+        ]
+      ]
+    ]
+    [
+      ; This assumes in aisle
+      ; Just exit aisle to the front
+      set heading 180
+      customer-move-forward
+    ]
   ]
 end
 

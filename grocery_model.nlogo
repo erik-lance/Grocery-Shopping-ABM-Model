@@ -16,7 +16,7 @@ to setup
   load-list
 
   ; create the customer
-  spawn-customer 3
+  spawn-customer 1
 
 
   print "________import done_________"
@@ -25,7 +25,8 @@ to setup
   ask patches [
     ifelse pcolor = brown ;if shelf, get item
     [
-        let id (random 2) + 1
+        ; random X where X is the amount of items (excluding header)
+        let id (random 5) + 1
         fill-shelf id 50
     ]
     ;else product id is -1
@@ -167,7 +168,7 @@ SWITCH
 109
 print-bucket
 print-bucket
-1
+0
 1
 -1000
 
