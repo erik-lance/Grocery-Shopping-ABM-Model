@@ -7,12 +7,13 @@ __includes [
 ]
 
 extensions [csv]
-globals [data customers-alive collisions sales]
+globals [data customers-alive collisions sales total-customers]
 
 to setup
   clear-all
   create-map
   set customers-alive 0
+  set total-customers 0
   set collisions 0
   set sales 0
   load-list
@@ -49,9 +50,9 @@ to go
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-209
+226
 10
-646
+663
 448
 -1
 -1
@@ -76,11 +77,11 @@ ticks
 120.0
 
 BUTTON
-72
-152
-135
-185
-NIL
+34
+27
+100
+60
+Setup
 setup
 NIL
 1
@@ -93,11 +94,11 @@ NIL
 1
 
 BUTTON
-72
-229
-135
-262
-NIL
+119
+26
+182
+59
+Go
 go
 NIL
 1
@@ -110,11 +111,11 @@ NIL
 1
 
 BUTTON
-71
-191
-134
-224
-NIL
+35
+72
+183
+105
+Go Continuous
 go
 T
 1
@@ -127,21 +128,21 @@ NIL
 1
 
 MONITOR
-691
+673
+17
+796
 62
-832
-107
-NIL
-customers-alive
+Customers Served
+total-customers
 17
 1
 11
 
 SLIDER
-691
-185
-884
-218
+15
+175
+208
+208
 customer-distance
 customer-distance
 0
@@ -153,10 +154,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-691
-227
-885
-260
+15
+217
+209
+250
 checkout-speed
 checkout-speed
 0
@@ -168,10 +169,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-959
-76
-1075
-109
+677
+354
+793
+387
 print-bucket
 print-bucket
 0
@@ -179,10 +180,10 @@ print-bucket
 -1000
 
 SWITCH
-958
-114
-1081
-147
+676
+392
+799
+425
 color-shelves
 color-shelves
 1
@@ -190,20 +191,20 @@ color-shelves
 -1000
 
 TEXTBOX
-959
-52
-1109
-70
+677
+330
+827
+348
 Debug Options\n
 10
 0.0
 1
 
 SLIDER
-691
-145
-885
-178
+15
+135
+209
+168
 customer-movement-speed
 customer-movement-speed
 0
@@ -215,10 +216,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-692
-271
-886
-304
+16
+261
+209
+294
 max-items
 max-items
 1
@@ -230,10 +231,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-692
-13
-798
-58
+964
+17
+1088
+62
 Collision Counter
 collisions
 17
@@ -241,10 +242,10 @@ collisions
 11
 
 SLIDER
-692
-322
-889
-355
+16
+308
+209
+341
 initial-num-customer-spawn
 initial-num-customer-spawn
 1
@@ -256,25 +257,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-691
-412
-891
-445
+15
+398
+209
+431
 ticks-per-spawn
 ticks-per-spawn
 1
 100
-20.0
+100.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-692
-367
-890
-400
+16
+353
+209
+386
 max-num-per-spawn
 max-num-per-spawn
 1
@@ -286,15 +287,33 @@ NIL
 HORIZONTAL
 
 MONITOR
-915
-179
-972
-224
-NIL
+820
+17
+942
+62
+Total Sales
 sales
 17
 1
 11
+
+PLOT
+673
+70
+1089
+290
+Customers-alive
+time
+population
+0.0
+10.0
+0.0
+50.0
+true
+true
+"" ""
+PENS
+"customers-alive" 1.0 0 -13791810 true "" "plot count customers"
 
 @#$#@#$#@
 ## WHAT IS IT?
