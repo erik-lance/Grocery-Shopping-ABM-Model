@@ -146,7 +146,7 @@ to add-basket [grocery_item]
 end
 
 to-report generate-bucket-list
-  let num-items random 10
+  let num-items random max-items
   let cur-items 0
   let bucket []
   
