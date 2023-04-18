@@ -47,7 +47,66 @@ to move-customer
   ; This goes to a nearby patch to the chosen shelf
   go-to-floor [shelf_id] of close-path
   
+  print shopping-list ;print shopping list of customer
   
+  ;if customer reaches the floor of target shelf
+  if(patch-here = close-path)[
+    let prodid [product_id] of close-shelf
+    let prodindex 0
+    
+    ;check for every item in shopping list
+    foreach shopping-list [ a ->
+      let bucket-item-id item 0 a
+      let bucket-item-quantity item 1 a
+      let shelf-quantity 0
+      let found false
+      
+      ;if item in shelf is in bucket list
+      if(bucket-item-id = prodid)[  
+        ;reduce quantity of item in the shelf
+        ask patches with [shelf_id = ([shelf_id] of close-shelf)] [
+          set shelf-quantity product_quantity ; shelf quantity is a temp variable to use value of product_quantity outside of "ask patches"
+          set found true
+          ifelse (bucket-item-quantity <= product_quantity)[
+            set product_quantity product_quantity - bucket-item-quantity
+          ]
+          [
+            set product_quantity 0
+          ]
+        ]
+        
+        ;update bucket list and basket
+        ifelse (bucket-item-quantity <= shelf-quantity and found = true)[
+          ;remove from shopping list when shelf quantity is equal or bigger than required
+          add-basket (item prodindex shopping-list) 
+          set shopping-list remove-item prodindex shopping-list 
+        ]
+        [
+          ;else update quantity
+          let replacement-item []
+          set replacement-item lput bucket-item-id replacement-item
+          set replacement-item lput (bucket-item-quantity - shelf-quantity) replacement-item
+          set shopping-list replace-item prodindex shopping-list replacement-item
+          
+          ;; CURRENTLY DOES NOT HANDLE SITUATIONS WHERE ITEM IS GRABBED TWICE (for restocking) -> WOULD HAVE 2 OF THE SAME ITEMS ON THE 
+          ;; BASKET WITH DIFFERENT QUANTITIES INSTEAD OF UPDATING THE QUANTITY OF THE PREVIOUS
+          ;; Basket would look something like this -> [[4 1] [4 2]] instead of [[4 3]]
+          let basket-item []
+          set basket-item lput bucket-item-id basket-item
+          set basket-item lput shelf-quantity basket-item
+          add-basket basket-item 
+        ]
+      ]
+      set prodindex prodindex + 1
+    ]
+    print("After for each")
+    print ("quantity of shelf is ")
+    print [product_quantity] of close-shelf
+    print ("bucket list is now ")
+    print shopping-list
+    print ("basket is ")
+    print basket
+  ]
   ; This must be called once shopping is done. Will not work if immediately called.
   ; It assumes customer is at any patch behind the cashier line.
   ;go-to-closest-cashier
@@ -83,7 +142,7 @@ end
 
 
 to add-basket [grocery_item]
-  
+  set basket lput grocery_item basket
 end
 
 to-report generate-bucket-list
