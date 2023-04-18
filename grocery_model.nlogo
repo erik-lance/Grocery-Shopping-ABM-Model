@@ -7,12 +7,13 @@ __includes [
 ]
 
 extensions [csv]
-globals [data customers-alive]
+globals [data customers-alive collisions]
 
 to setup
   clear-all
   create-map
   set customers-alive 0
+  set collisions 0
   load-list
 
   ; create the customer
