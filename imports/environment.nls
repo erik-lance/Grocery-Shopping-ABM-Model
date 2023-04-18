@@ -62,10 +62,31 @@ end
 
 to draw-shelf-colors
   ask patches [
-    if pcolor = brown ;if shelf, get item 
+    ;ifelse pcolor = brown ;if shelf, get item
+    ifelse pcolor = brown ;if shelf, get item 
     [
-      if ((pxcor >= 1 and pxcor < 10) and pycor >= 15)[ set pcolor 17]
+      if ((pxcor >= 1 and pxcor < 8) and pycor = 15)[ set pcolor yellow set product_id 1] ; banana
+      if ((pxcor >= 8 and pxcor <= 14) and pycor = 15)[ set pcolor 14 set product_id 0] ; apple
+      if ((pycor >= 9 and pycor <= 14) and pxcor = 15)[ set pcolor orange set product_id 2] ; orange
+      if ((pycor >= 1 and pycor <= 7) and pxcor = 15)[ set pcolor 43 set product_id 11] ; cooking oil
+      if ((pycor >= 7 and pycor <= 11) and pxcor = 10)[ set pcolor 12 set product_id 4] ; tomato
+      if ((pycor >= 1 and pycor <= 5) and pxcor = 10)[ set pcolor 32 set product_id 12] ; potato
+      if ((pycor >= 5 and pycor <= 11) and pxcor = 7)[ set pcolor 119 set product_id 14] ; salt
+      if ((pycor >= 1 and pycor <= 6) and pxcor = 7)[ set pcolor 139 set product_id 13] ; sugar
+      if ((pycor >= 1 and pycor <= 11) and pxcor = 2)[ set pcolor 88 set product_id 10] ; chips
+      if ((pycor >= 1 and pycor <= 11) and pxcor = 1)[ set pcolor 87 set product_id 10] ; chips
+      if ((pycor >= 1 and pycor <= 11) and pxcor = -2)[ set pcolor 39 set product_id 6] ; rice
+      if ((pycor >= 1 and pycor <= 11) and pxcor = -7)[ set pcolor 37 set product_id 9] ; bread
+      if ((pycor >= 6 and pycor <= 11) and pxcor = -10)[ set pcolor 27 set product_id 3] ; onion
+      if ((pycor >= 1 and pycor <= 5) and pxcor = -10)[ set pcolor 22 set product_id 7] ; garlic
+      if ((pxcor <= -1 and pxcor > -8) and pycor = 15)[ set pcolor 49 set product_id 8] ; milk
+      if ((pxcor < -8 and pxcor >= -14) and pycor = 15)[ set pcolor 47 set product_id 5] ; cheese
+      if ((pycor >= 8 and pycor <= 14) and pxcor = -15)[ set pcolor 29 set product_id 15] ; eggs
+      if ((pycor >= 1 and pycor <= 7) and pxcor = -15)[ set pcolor 48 set product_id 16] ; butter 
     ]
+    [set product_id -1]
+    ;else product id is -1 for brown patches that did not get recolored
+    if pcolor = brown [set product_id -1]
   ]
   
 end
