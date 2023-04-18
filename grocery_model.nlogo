@@ -7,7 +7,7 @@ __includes [
 ]
 
 extensions [csv]
-globals [data customers-alive collisions]
+globals [data customers-alive collisions sales]
 
 to setup
   clear-all
