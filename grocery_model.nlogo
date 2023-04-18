@@ -224,6 +224,17 @@ max-items
 NIL
 HORIZONTAL
 
+MONITOR
+692
+13
+798
+58
+Collision Counter
+collisions
+17
+1
+11
+
 @#$#@#$#@
 ## WHAT IS IT?
 
