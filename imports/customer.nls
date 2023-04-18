@@ -47,7 +47,7 @@ to move-customer
   ; This goes to a nearby patch to the chosen shelf
   go-to-floor [shelf_id] of close-path
   
-  print shopping-list ;print shopping list of customer
+  ;print shopping-list ;print shopping list of customer
   
   ;if customer reaches the floor of target shelf
   if(patch-here = close-path)[
@@ -99,13 +99,13 @@ to move-customer
       ]
       set prodindex prodindex + 1
     ]
-    print("After for each")
-    print ("quantity of shelf is ")
-    print [product_quantity] of close-shelf
-    print ("bucket list is now ")
-    print shopping-list
-    print ("basket is ")
-    print basket
+    ;print("After for each")
+    ;print ("quantity of shelf is ")
+    ;print [product_quantity] of close-shelf
+    ;print ("bucket list is now ")
+    ;print shopping-list
+    ;print ("basket is ")
+    ;print basket
   ]
   ; This must be called once shopping is done. Will not work if immediately called.
   ; It assumes customer is at any patch behind the cashier line.

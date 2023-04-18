@@ -16,7 +16,7 @@ to setup
   load-list
 
   ; create the customer
-  spawn-customer 1
+  spawn-customer 3
 
 
   print "________import done_________"
