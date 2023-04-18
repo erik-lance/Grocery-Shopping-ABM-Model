@@ -74,6 +74,7 @@ to move-customer
         ]
         set prodindex prodindex + 1
       ]
+      print basket
     ]
   ]
 
@@ -216,6 +217,10 @@ to-report pop-item
   report popped
 end  
 
+
+to spawner[num]
+  spawn-customer random (num + 1)
+end
 
 
 

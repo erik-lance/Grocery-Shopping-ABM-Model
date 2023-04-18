@@ -17,7 +17,7 @@ to setup
   load-list
 
   ; create the customer
-  spawn-customer 1
+  spawn-customer initial-num-customer-spawn
 
 
   print "________import done_________"
@@ -27,7 +27,7 @@ to setup
     ifelse pcolor = brown ;if shelf, get item
     [
         ; random X where X is the amount of items (excluding header)
-        let id (random 5) + 1
+        let id (random 15) + 1
         fill-shelf id 50
     ]
     ;else product id is -1
@@ -42,6 +42,9 @@ end
 to go
   ask customers [ move-customer ]
   tick
+  if(ticks mod ticks-per-spawn = 0)[
+    spawner max-num-per-spawn
+  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -235,6 +238,51 @@ collisions
 17
 1
 11
+
+SLIDER
+692
+322
+889
+355
+initial-num-customer-spawn
+initial-num-customer-spawn
+1
+3
+3.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+691
+412
+891
+445
+ticks-per-spawn
+ticks-per-spawn
+1
+100
+20.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+692
+367
+890
+400
+max-num-per-spawn
+max-num-per-spawn
+1
+3
+3.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
