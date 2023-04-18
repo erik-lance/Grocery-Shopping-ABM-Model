@@ -76,7 +76,7 @@ end
 
 to customer-move-forward
   ; This is now the main procedure used for all move operations with customer.
-  fd customer-movement-speed
+  fd customer-movement-speed / 100
 end
 
 

@@ -66,7 +66,7 @@ GRAPHICS-WINDOW
 0
 1
 ticks
-30.0
+120.0
 
 BUTTON
 72
@@ -200,9 +200,9 @@ SLIDER
 customer-movement-speed
 customer-movement-speed
 0
-100
-50.0
-1
+2
+1.0
+0.1
 1
 NIL
 HORIZONTAL
