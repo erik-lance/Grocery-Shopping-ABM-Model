@@ -7,13 +7,12 @@ __includes [
 ]
 
 extensions [csv]
-globals [data customers-alive collisions]
+globals [data customers-alive]
 
 to setup
   clear-all
   create-map
   set customers-alive 0
-  set collisions 0
   load-list
 
   ; create the customer
@@ -41,6 +40,7 @@ end
 
 to go
   ask customers [ move-customer ]
+  tick
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -64,8 +64,8 @@ GRAPHICS-WINDOW
 16
 -16
 16
-0
-0
+1
+1
 1
 ticks
 120.0
@@ -169,7 +169,7 @@ SWITCH
 109
 print-bucket
 print-bucket
-0
+1
 1
 -1000
 
