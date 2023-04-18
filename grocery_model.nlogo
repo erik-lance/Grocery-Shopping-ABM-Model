@@ -14,6 +14,7 @@ to setup
   create-map
   set customers-alive 0
   set collisions 0
+  set sales 0
   load-list
 
   ; create the customer
@@ -283,6 +284,17 @@ max-num-per-spawn
 1
 NIL
 HORIZONTAL
+
+MONITOR
+915
+179
+972
+224
+NIL
+sales
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

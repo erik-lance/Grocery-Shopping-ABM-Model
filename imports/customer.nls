@@ -192,20 +192,22 @@ end
 
 to-report checkout-items
   let shopping-basket basket
-
   let item-in-basket pop-item
     let basket-item-id item 0 item-in-basket
     let basket-item-quantity item 1 item-in-basket
     let item-data grab-item-data (basket-item-id + 1)
-    let basket-item-price item 1 item-data
-    
+    print item-data 
+    let basket-item-price item 2 item-data
+    print basket-item-price
   loop [ 
-    if basket-item-quantity > 0  [
+    if basket-item-quantity = 0  [
       set shopping-basket (remove item-in-basket shopping-basket)
       report shopping-basket
     ]
-      set sales sales + basket-item-price ; add 
-      set basket-item-quantity basket-item-quantity - 1
+    set sales (sales + basket-item-price) ; add 
+    
+    set basket-item-quantity basket-item-quantity - 1
+    
     ]
       ; delete the item from the basket
      
