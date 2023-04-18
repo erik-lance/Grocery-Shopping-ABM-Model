@@ -33,8 +33,7 @@ to setup
   ]
 
   ;for debugging
-  ;debug-shelves
-  ;debug-bucket
+  debug-tools
   reset-ticks
 end
 
