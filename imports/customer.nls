@@ -84,7 +84,7 @@ to move-customer
     go-to-closest-cashier
   ]
   
-  if customers-alive > tolerance [
+  if customers-alive > tolerance and pycor < -12[ ;If Tolerance is exceeded by the number of alive customers they leave, they do not if already above cashier
     let exit-patch one-of patches with [pcolor = red]
     face exit-patch
     customer-move-forward
