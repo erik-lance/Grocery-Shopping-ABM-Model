@@ -57,7 +57,6 @@ to go-to-floor [id]
     [
       if is-in-aisle
       [
-        print "I'M GOING!"
         set heading 0
         customer-move-forward
         stop

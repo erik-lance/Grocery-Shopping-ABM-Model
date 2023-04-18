@@ -87,7 +87,6 @@ to move-customer
         ]
         set prodindex prodindex + 1
       ]
-      print basket
       set target-patch 0
     ]
   ]
