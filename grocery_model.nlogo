@@ -27,7 +27,7 @@ to setup
     ifelse pcolor = brown ;if shelf, get item
     [
         ; random X where X is the amount of items (excluding header)
-        let id (random 5) + 1
+        let id (random 15) + 1
         fill-shelf id 50
     ]
     ;else product id is -1
