@@ -103,6 +103,11 @@ end
 to customer-move-forward
   ; This is now the main procedure used for all move operations with customer.
   fd customer-movement-speed / 100
+  ; Check for collisions, increment counter if distance < 2
+  ask turtles
+  [ let nearest min-one-of turtles [distance myself]
+    if distance nearest < 2 [ set collisions (collisions +1) ]
+  ]
 end
 
 
