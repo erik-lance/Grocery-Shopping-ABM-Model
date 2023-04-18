@@ -74,6 +74,7 @@ to move-customer
         ]
         set prodindex prodindex + 1
       ]
+      print basket
     ]
   ]
 
@@ -82,6 +83,18 @@ to move-customer
   if empty? shopping-list
   [
     go-to-closest-cashier
+
+    
+    ifelse empty? basket [
+       let exit-patch one-of patches with [pcolor = red]
+       face exit-patch
+       customer-move-forward
+    ]
+    [
+      if ((ticks mod checkout-speed) = 0)[
+        set basket checkout-items
+      ]
+    ]
   ]
   
   if customers-alive > tolerance and pycor < -12[ ;If Tolerance is exceeded by the number of alive customers they leave, they do not if already above cashier
@@ -90,9 +103,8 @@ to move-customer
     customer-move-forward
   ]
   ; This sends the customer to exit.
-  ;let exit-patch one-of patches with [pcolor = red]
-  ;face exit-patch
-  ;fd 1
+ 
+ 
   if pcolor = red [
     set customers-alive (customers-alive - 1)
     die
@@ -177,5 +189,41 @@ to-report generate-bucket-list
   ]
 
 end
+
+to-report checkout-items
+  let shopping-basket basket
+  let item-in-basket pop-item
+    let basket-item-id item 0 item-in-basket
+    let basket-item-quantity item 1 item-in-basket
+    let item-data grab-item-data (basket-item-id + 1)
+    print item-data 
+    let basket-item-price item 2 item-data
+    print basket-item-price
+  loop [ 
+    if basket-item-quantity = 0  [
+      set shopping-basket (remove item-in-basket shopping-basket)
+      report shopping-basket
+    ]
+    set sales (sales + basket-item-price) ; add 
+    
+    set basket-item-quantity basket-item-quantity - 1
+    
+    ]
+      ; delete the item from the basket
+     
+end
+
+to-report pop-item 
+  let mybasket basket
+  let popped first mybasket
+  report popped
+end  
+
+
+to spawner[num]
+  spawn-customer random (num + 1)
+end
+
+
 
 

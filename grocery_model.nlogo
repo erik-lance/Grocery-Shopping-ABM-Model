@@ -7,17 +7,18 @@ __includes [
 ]
 
 extensions [csv]
-globals [data customers-alive collisions]
+globals [data customers-alive collisions sales]
 
 to setup
   clear-all
   create-map
   set customers-alive 0
   set collisions 0
+  set sales 0
   load-list
 
   ; create the customer
-  spawn-customer 1
+  spawn-customer initial-num-customer-spawn
 
 
   print "________import done_________"
@@ -42,6 +43,9 @@ end
 to go
   ask customers [ move-customer ]
   tick
+  if(ticks mod ticks-per-spawn = 0)[
+    spawner max-num-per-spawn
+  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -232,6 +236,62 @@ MONITOR
 58
 Collision Counter
 collisions
+17
+1
+11
+
+SLIDER
+692
+322
+889
+355
+initial-num-customer-spawn
+initial-num-customer-spawn
+1
+3
+3.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+691
+412
+891
+445
+ticks-per-spawn
+ticks-per-spawn
+1
+100
+20.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+692
+367
+890
+400
+max-num-per-spawn
+max-num-per-spawn
+1
+3
+3.0
+1
+1
+NIL
+HORIZONTAL
+
+MONITOR
+915
+179
+972
+224
+NIL
+sales
 17
 1
 11
