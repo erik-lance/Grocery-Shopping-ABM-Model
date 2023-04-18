@@ -74,7 +74,7 @@ to draw-shelf-colors
       if ((pycor >= 5 and pycor <= 11) and pxcor = 7)[ set pcolor 119 set product_id 14] ; salt
       if ((pycor >= 1 and pycor <= 6) and pxcor = 7)[ set pcolor 139 set product_id 13] ; sugar
       if ((pycor >= 1 and pycor <= 11) and pxcor = 2)[ set pcolor 88 set product_id 10] ; chips
-      if ((pycor >= 1 and pycor <= 11) and pxcor = 1)[ set pcolor 87 set product_id 10] ; chips
+      if ((pycor >= 1 and pycor <= 11) and pxcor = 1)[ set pcolor 87 set product_id 17] ; cereal
       if ((pycor >= 1 and pycor <= 11) and pxcor = -2)[ set pcolor 39 set product_id 6] ; rice
       if ((pycor >= 1 and pycor <= 11) and pxcor = -7)[ set pcolor 37 set product_id 9] ; bread
       if ((pycor >= 6 and pycor <= 11) and pxcor = -10)[ set pcolor 27 set product_id 3] ; onion
