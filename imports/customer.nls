@@ -102,11 +102,18 @@ end
 
 to customer-move-forward
   ; This is now the main procedure used for all move operations with customer.
+  let self-patch patch-here
+  let x-coord [pxcor] of self-patch
+  let y-coord [pycor] of self-patch
+  
   fd customer-movement-speed / 2
   ; Check for collisions, increment counter if distance < 2
   if customers-alive > 1 [
     let nearest min-one-of other turtles [distance myself]
-    if distance nearest < 10 [ set collisions (collisions + 1 ) ]
+     if (in-cashier-line x-coord and (y-coord > -12) )
+    [
+      if distance nearest < 10 [ set collisions (collisions + 1 )]
+    ]
   ]
 end
 
