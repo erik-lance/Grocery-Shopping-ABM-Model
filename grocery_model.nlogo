@@ -132,7 +132,7 @@ MONITOR
 17
 796
 62
-Total Customers Served
+Customers Served
 total-customers
 17
 1
