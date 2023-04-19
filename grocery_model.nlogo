@@ -349,7 +349,7 @@ SWITCH
 442
 stop-ticks
 stop-ticks
-0
+1
 1
 -1000
 
