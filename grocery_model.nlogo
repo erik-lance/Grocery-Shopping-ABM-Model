@@ -7,7 +7,7 @@ __includes [
 ]
 
 extensions [csv]
-globals [data customers-alive collisions sales total-customers]
+globals [data customers-alive collisions sales total-customers early-leave]
 
 to setup
   clear-all
@@ -16,6 +16,7 @@ to setup
   set total-customers 0
   set collisions 0
   set sales 0
+  set early-leave 0
   load-list
 
   ; create the customer
@@ -303,6 +304,17 @@ true
 "" ""
 PENS
 "customers-alive" 1.0 0 -13791810 true "" "plot count customers"
+
+MONITOR
+848
+341
+1060
+386
+Customers leaving due to tolerance
+early-leave
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
