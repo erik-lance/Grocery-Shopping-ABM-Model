@@ -255,7 +255,7 @@ ticks-per-spawn
 ticks-per-spawn
 1
 100
-100.0
+10.0
 1
 1
 NIL
