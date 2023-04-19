@@ -43,11 +43,22 @@ to setup
 end
 
 to go
-  ask customers [ move-customer ]
-  tick
-  if(ticks mod ticks-per-spawn = 0)[
+  if (stop-ticks = true and ticks < 1000)
+  [
+    ask customers [ move-customer ]
+    tick
+    if(ticks mod ticks-per-spawn = 0)[
     spawner max-num-per-spawn
+    ]
   ]
+  if (stop-ticks = false) [
+    ask customers [ move-customer ]
+    tick
+    if(ticks mod ticks-per-spawn = 0)[
+      spawner max-num-per-spawn
+    ]
+  ]
+
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -330,6 +341,17 @@ max-tolerance-level
 1
 NIL
 HORIZONTAL
+
+SWITCH
+684
+409
+787
+442
+stop-ticks
+stop-ticks
+0
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
