@@ -34,6 +34,25 @@ end
 
 ; Move customer
 to move-customer
+  
+  if customers-alive > tolerance and pycor < -12 and not empty? shopping-list[ ;If Tolerance is exceeded by the number of alive customers they leave, they do not if already above cashier
+    let exit-patch one-of patches with [pcolor = red]
+    face exit-patch
+    customer-move-forward
+    stop
+  ]
+  
+   ; This sends the customer to exit.
+ 
+ 
+  if pcolor = red [
+    set customers-alive (customers-alive - 1)
+    if empty? shopping-list[
+      set total-customers (total-customers + 1)
+    ]
+    die
+  ]
+  
   ; Will only pick up items as long as shopping list isn't empty
   if not empty? shopping-list 
   [
@@ -111,21 +130,8 @@ to move-customer
     ]
   ]
   
-  if customers-alive > tolerance and pycor < -12 and not empty? shopping-list[ ;If Tolerance is exceeded by the number of alive customers they leave, they do not if already above cashier
-    let exit-patch one-of patches with [pcolor = red]
-    face exit-patch
-    customer-move-forward
-  ]
-  ; This sends the customer to exit.
+  
  
- 
-  if pcolor = red [
-    set customers-alive (customers-alive - 1)
-    if empty? shopping-list[
-      set total-customers (total-customers + 1)
-    ]
-    die
-  ]
   
 end
 
