@@ -20,7 +20,7 @@ to spawn-customer [num_customers]
     set selected-shelf -1
     ;set selected-product 
     move-to one-of patches with [pcolor = green ]
-    set color grey
+    set color 33 
     set shape "person"
     set size 2
   ]
