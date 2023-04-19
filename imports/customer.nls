@@ -14,7 +14,7 @@ customers-own [
 to spawn-customer [num_customers]
   set customers-alive (customers-alive + num_customers)
   create-customers num_customers [
-    set tolerance random 26 + 25 ;sets random tolerance between 25-50
+    set tolerance random max-tolerance-level + 30 ;sets random tolerance between 25-50
     set basket []
     set shopping-list generate-bucket-list
     set selected-shelf -1

@@ -78,10 +78,10 @@ ticks
 120.0
 
 BUTTON
-34
-27
-100
-60
+35
+14
+101
+47
 Setup
 setup
 NIL
@@ -95,10 +95,10 @@ NIL
 1
 
 BUTTON
-119
-26
-182
-59
+120
+13
+183
+46
 Go
 go
 NIL
@@ -112,10 +112,10 @@ NIL
 1
 
 BUTTON
-35
-72
-183
-105
+36
+59
+184
+92
 Go Continuous
 go
 T
@@ -140,10 +140,10 @@ total-customers
 11
 
 SLIDER
-15
-175
-208
-208
+16
+143
+209
+176
 customer-distance
 customer-distance
 0
@@ -155,10 +155,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-15
-217
-209
-250
+16
+185
+210
+218
 checkout-speed
 checkout-speed
 0
@@ -191,10 +191,10 @@ Debug Options\n
 1
 
 SLIDER
-15
-135
-209
-168
+16
+103
+210
+136
 customer-movement-speed
 customer-movement-speed
 0
@@ -206,10 +206,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-16
-261
-209
-294
+17
+229
+210
+262
 max-items
 max-items
 1
@@ -232,10 +232,10 @@ collisions
 11
 
 SLIDER
-16
-308
-209
-341
+17
+274
+210
+307
 initial-num-customer-spawn
 initial-num-customer-spawn
 1
@@ -247,10 +247,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-15
-398
-209
-431
+16
+364
+210
+397
 ticks-per-spawn
 ticks-per-spawn
 1
@@ -262,10 +262,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-16
-353
-209
-386
+17
+319
+210
+352
 max-num-per-spawn
 max-num-per-spawn
 1
@@ -315,6 +315,21 @@ early-leave
 17
 1
 11
+
+SLIDER
+16
+409
+212
+442
+max-tolerance-level
+max-tolerance-level
+50
+150
+50.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
