@@ -280,7 +280,7 @@ to go-to-a-cashier-line [x y]
   ; If in front row, try to find a cashier.
   ifelse (in-front-row y)
   [
-   if (in-cashier-line x and y >= -12)
+   if (in-cashier-line x and y >= -10)
    [
      set heading 180
      customer-move-forward
@@ -326,7 +326,7 @@ to go-to-a-cashier-line [x y]
     [
       ; Else, you're probably in!
       ; This assumes in a line
-      if (y >= -12)
+      if (y >= -10)
       [
         set heading 180
         customer-move-forward
