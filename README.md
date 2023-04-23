@@ -6,4 +6,4 @@ A grocery model that measures the traffic of customers. It also includes how cus
 
 
 
-<a href="https://github.com/erik-lance/Grocery-Shopping-ABM-Model/blob/master/img/Grocery%20Simulation.gif" width=50% height=50%></a>
+<a href="https://github.com/erik-lance/Grocery-Shopping-ABM-Model/blob/master/img/Grocery_Simulation.gif" width=50% height=50%></a>
